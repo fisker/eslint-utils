@@ -9,7 +9,7 @@ module.exports = {
         repo: "mysticatea/eslint-utils",
         docsRepo: "mysticatea/eslint-utils",
         docsDir: "docs",
-        docsBranch: "master",
+        docsBranch: "main",
         editLinks: true,
 
         sidebar: {
