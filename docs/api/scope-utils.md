@@ -29,7 +29,9 @@ module.exports = {
     create(context) {
         return {
             Identifier(node) {
-                const variable = findVariable(context.getScope(), node)
+                const variable = findVariable(context.sourceCode.getScope(node), node)
+                // When using ESLint<8.37.0, write as follows:
+                // const variable = findVariable(context.getScope(), node)
             },
         }
     },
@@ -66,7 +68,9 @@ module.exports = {
     create(context) {
         return {
             "Program"(node) {
-                const globalScope = context.getScope()
+                const globalScope = context.sourceCode.getScope(node)
+                // When using ESLint<8.37.0, write as follows:
+                // const globalScope = context.getScope()
                 const maybeNodejsScope = getInnermostScope(globalScope, node)
             },
         }
@@ -128,7 +132,12 @@ module.exports = {
     create(context) {
         return {
             "Program:exit"() {
-                const tracker = new ReferenceTracker(context.getScope())
+                const tracker = new ReferenceTracker(
+                    context.sourceCode.getScope(context.sourceCode.ast),
+                )
+                // When using ESLint<8.37.0, write as follows:
+                // const tracker = new ReferenceTracker(context.getScope())
+
                 const traceMap = {
                     // Find `console.log`, `console.info`, `console.warn`, and `console.error`.
                     console: {
@@ -196,7 +205,12 @@ module.exports = {
     create(context) {
         return {
             "Program:exit"() {
-                const tracker = new ReferenceTracker(context.getScope())
+                const tracker = new ReferenceTracker(
+                    context.sourceCode.getScope(context.sourceCode.ast),
+                )
+                // When using ESLint<8.37.0, write as follows:
+                // const tracker = new ReferenceTracker(context.getScope())
+
                 const traceMap = {
                     // Find `Buffer()` and `new Buffer()` of `buffer` module.
                     buffer: {
@@ -265,7 +279,12 @@ module.exports = {
     create(context) {
         return {
             "Program:exit"() {
-                const tracker = new ReferenceTracker(context.getScope())
+                const tracker = new ReferenceTracker(
+                    context.sourceCode.getScope(context.sourceCode.ast),
+                )
+                // When using ESLint<8.37.0, write as follows:
+                // const tracker = new ReferenceTracker(context.getScope())
+
                 const traceMap = {
                     // Find `Buffer()` and `new Buffer()` of `buffer` module.
                     buffer: {
